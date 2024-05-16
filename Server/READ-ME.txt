@@ -1,0 +1,46 @@
+============================================
+    01. Need set hosted database(not local host)
+    02. Config you database information in serever.js file
+            ---> as this,
+                //server information
+                    const connection = mysql.createConnection({
+                    host: 'sql6.freesqldatabase.com',
+                    user: 'sql6695059',
+                    password: 'nFI2ZWAYSe',
+                    database: 'sql6695059',
+                    });
+
+    Usage ==>
+        you can use to vercel.com deploye your project free
+
+        and you can use your api like this,
+
+        01. search 
+            api --> 
+            
+            values--->
+                    {"query":"select * from student;", "key" : "code"} 
+
+        02. update 
+            api --> https://back-end-gamma-pink.vercel.app/update
+            
+            values--->
+                    {"query":"UPDATE `student` SET `test2`='work',`test3`='from',`test4`='home' WHERE test='3';",, "key" : "code"} 
+        
+        03. delete 
+            api --> https://back-end-gamma-pink.vercel.app/delete
+            
+            values--->
+                    {"query":"DELETE FROM `student` WHERE id='1';", "key" : "code"} 
+        
+        04. Insert 
+            api --> https://back-end-gamma-pink.vercel.app/insert
+            
+            values--->
+                    { 
+                        "query":"INSERT INTO `student`(`test`, `test2`, `test3`) VALUES (?,?,?)",
+                        "value1":"nirosh",
+                        "value2":"madushan",
+                        "value3":"colombo",
+                        "key" : "code"
+                    }

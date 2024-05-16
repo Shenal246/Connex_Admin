@@ -1,0 +1,46 @@
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import './NavigationBar.css';
+import { BrowserRouter as Router, Route, Routes, NavLink } from "react-router-dom";
+import Events from '../Events/Events';
+import Vendors from '../Vendors/Vendor';
+
+
+function NavigationBar() {
+  return (
+    <Router>
+      <Navbar expand="lg" className="back" data-bs-theme="dark">
+        <Container fluid>
+          <Navbar.Brand>Connex Admin</Navbar.Brand>
+          <Navbar.Toggle aria-controls="navbarScroll" />
+          <Navbar.Collapse id="navbarScroll">
+            <Nav
+              className="me-auto my-2 my-lg-0"
+              style={{ maxHeight: '100px' }}
+              navbarScroll
+            >
+              <NavLink to="/Events&News" activeClassName='active-link' exact className="navlinks">Events & News</NavLink>
+              <NavLink to="/Vendors" activeClassName='active-link' exact className="navlinks">Vendors</NavLink>
+              <NavLink to="/Products" activeClassName='active-link' exact className="navlinks">Products</NavLink>
+            </Nav>
+            <Nav>
+              <Button variant="primary">Logout</Button>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+      <Routes>
+        <Route path="" exact Component={Events}></Route>
+        <Route path="/Events&News" exact Component={Events}></Route>
+        <Route path="/Vendors" exact Component={Vendors}></Route>
+        {/* <Route path="/Products" exact Component={P}></Route> */}
+      </Routes>
+
+    </Router>
+  );
+}
+
+export default NavigationBar;
