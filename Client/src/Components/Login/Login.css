@@ -1,0 +1,26 @@
+.loginContainer{
+    background-color: rgba(163, 189, 236,0.7);
+    border-radius: 15px;
+    padding: 10px;
+    margin-top: 20px !important;
+}
+
+.buttons{
+    width: 250px;
+}
+
+.headingText{
+    font-size: xx-large;
+    text-align: center;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    font-weight: bolder;
+}
+
+.fogetText{
+    font-size: small;
+    color: red;
+    text-decoration: none;
+    text-align: center !important;
+}
+
