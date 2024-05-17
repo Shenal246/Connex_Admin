@@ -22,9 +22,9 @@ function NavigationBar() {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <NavLink to="/Events&News" activeClassName='active-link' exact className="navlinks">Events & News</NavLink>
-              <NavLink to="/Vendors" activeClassName='active-link' exact className="navlinks">Vendors</NavLink>
-              <NavLink to="/Products" activeClassName='active-link' exact className="navlinks">Products</NavLink>
+              <NavLink to="/Events&News" activeclassname='active-link'  className="navlinks">Events & News</NavLink>
+              <NavLink to="/Vendors" activeclassname='active-link'  className="navlinks">Vendors</NavLink>
+              <NavLink to="/Products" activeclassname='active-link'  className="navlinks">Products</NavLink>
             </Nav>
             <Nav>
               <Button variant="primary">Logout</Button>
@@ -34,10 +34,10 @@ function NavigationBar() {
       </Navbar>
 
       <Routes>
-        <Route path="" exact Component={Events}></Route>
-        <Route path="/Events&News" exact Component={Events}></Route>
-        <Route path="/Vendors" exact Component={Vendors}></Route>
-        <Route path="/Products" exact Component={Products}></Route>
+        <Route path=""  Component={Events}></Route>
+        <Route path="/Events&News"  Component={Events}></Route>
+        <Route path="/Vendors"  Component={Vendors}></Route>
+        <Route path="/Products"  Component={Products}></Route>
       </Routes>
 
     </Router>

@@ -8,9 +8,9 @@ const port = 5000;
 //server information
 const connection = mysql.createConnection({
   host: 'localhost',
-  user: 'host01',
-  password: 'Nir@2000313',
-  database: 'connexdb',
+  user: 'root',
+  password: '',
+  database: 'cnndb',
 });
 
 

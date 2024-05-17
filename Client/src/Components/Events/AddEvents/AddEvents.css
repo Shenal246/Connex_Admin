@@ -13,3 +13,8 @@
     font-size: 120%;
     text-align: center;
 }
+.ermsg{
+    color: red;
+    font-style: italic;
+    font-size: 12px;
+}
