@@ -7,6 +7,7 @@ import { useFormik } from 'formik';
 import axios from "axios";
 import React  from 'react';
 import { useNavigate } from "react-router-dom";
+import ShowEvents from '../ShowEvents/ShowEvents';
 
 const validationSchema =Yup.object({
     value1: Yup.string().required(" * Required"),
@@ -30,10 +31,11 @@ function AddEvents() {
         },
         validationSchema: validationSchema,
         onSubmit: async (values) => {
-           await axios.post("https://localhost:5000/insert",values).then((response)=>{
+           await axios.post("http://localhost:5000/insert",values).then((response)=>{
                
                 alert("News & Event Added SuccessFully");
-                navigate("")
+                window.location.reload();
+                  
                
              })
           console.log(values);
