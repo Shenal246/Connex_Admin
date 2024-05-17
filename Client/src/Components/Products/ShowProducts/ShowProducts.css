@@ -1,5 +1,5 @@
 .conback {
-    background-color: rgba(177, 193, 226,0.5);
+    background-color: rgba(177, 193, 226, 0.5);
     border-radius: 15px;
 }
 
@@ -12,8 +12,4 @@
 .topic {
     font-size: 120%;
     text-align: center;
-}
-
-.CheckboxGroup{
-    color: rgb(73, 73, 88);
 }
