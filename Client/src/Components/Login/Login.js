@@ -16,18 +16,18 @@ function Login() {
                                 <p className='headingText'>Connex Admin</p>
                             </div>
                             <div className='row'>
-                            <Form>
-                                <FloatingLabel controlId="username" label="User name" className="mb-3">
-                                    <Form.Control type="text" />
-                                </FloatingLabel>
-                                <FloatingLabel controlId="password" label="Password" className="mb-2">
-                                    <Form.Control type="password" />
-                                </FloatingLabel><br/>
-                                <a href='#' className='fogetText'>Forget Password ?</a><br/>
+                                <Form>
+                                    <FloatingLabel controlId="username" label="User name" className="mb-3">
+                                        <Form.Control type="text" />
+                                    </FloatingLabel>
+                                    <FloatingLabel controlId="password" label="Password" className="mb-2">
+                                        <Form.Control type="password" />
+                                    </FloatingLabel><br />
+                                    <a href='#' className='fogetText'>Forget Password ?</a><br />
 
-                                <Button variant="success" className='m-3 buttons'>Login</Button>
-                                <Button variant="danger" className='m-3 buttons' type="reset">Clear</Button>
-                            </Form>
+                                    <Button variant="success" className='m-3 buttons'>Login</Button>
+                                    <Button variant="danger" className='m-3 buttons' type="reset">Clear</Button>
+                                </Form>
                             </div>
                         </div>
                     </div>
