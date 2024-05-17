@@ -29,8 +29,8 @@ function AddEvents() {
               key : "FKoaDwCi7C"
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            axios.post("https://concise-golden-monkfish.ngrok-free.app/insert",values).then((response)=>{
+        onSubmit: async (values) => {
+            await axios.post("https://concise-golden-monkfish.ngrok-free.app/insert",values).then((response)=>{
                
                 alert("News & Event Added SuccessFully");
                 navigate("")
