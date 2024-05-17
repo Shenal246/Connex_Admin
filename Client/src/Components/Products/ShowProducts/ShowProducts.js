@@ -8,16 +8,16 @@ function ShowProducts() {
             <div className='col-2'></div>
             <div className='col-8 mb-5 formDiv'>
                 <div className='row mb-3'>
-                    <p className='topic'>Show Products and News</p>
+                    <p className='topic'>Show Products</p>
                 </div>
                 <div className='row'>
                     <Table striped>
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Title</th>
-                                <th>Video Type</th>
-                                <th>Status</th>
+                                <th>Product Name</th>
+                                <th>Vendor</th>
+                                <th>Category</th>
                                 <th>Modify</th>
                             </tr>
                         </thead>

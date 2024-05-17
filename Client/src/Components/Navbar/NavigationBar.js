@@ -6,6 +6,7 @@ import './NavigationBar.css';
 import { BrowserRouter as Router, Route, Routes, NavLink } from "react-router-dom";
 import Events from '../Events/Events';
 import Vendors from '../Vendors/Vendor';
+import Products from '../Products/Products';
 
 
 function NavigationBar() {
@@ -36,7 +37,7 @@ function NavigationBar() {
         <Route path="" exact Component={Events}></Route>
         <Route path="/Events&News" exact Component={Events}></Route>
         <Route path="/Vendors" exact Component={Vendors}></Route>
-        {/* <Route path="/Products" exact Component={P}></Route> */}
+        <Route path="/Products" exact Component={Products}></Route>
       </Routes>
 
     </Router>

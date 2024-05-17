@@ -7,13 +7,13 @@ function Products() {
 
     const tabs = [
         {
-            title: 'Add Products & News',
+            title: 'Add Products',
             eventKey: 'addProducts',
             component: <AddProducts/>
         },
         {
-            title: 'Show All News',
-            eventKey: 'showvendors',
+            title: 'Show All Products',
+            eventKey: 'showProducts',
             component: <ShowProducts/>
         }
     ];
@@ -22,7 +22,7 @@ function Products() {
         <section>
             <div className='container '>
                 <div className='row HeadingtextRow'>
-                    <p>Products & News</p>
+                    <p>Products</p>
                 </div>
                 <div className='row conback'>
                     <TabPannel tabs={tabs} />
