@@ -7,6 +7,7 @@ import { useFormik } from 'formik';
 import axios from "axios";
 import React  from 'react';
 import { useNavigate } from "react-router-dom";
+import ShowEvents from '../ShowEvents/ShowEvents';
 
 const validationSchema =Yup.object({
     value1: Yup.string().required(" * Required"),
@@ -30,10 +31,11 @@ function AddEvents() {
         },
         validationSchema: validationSchema,
         onSubmit: async (values) => {
-            await axios.post("https://concise-golden-monkfish.ngrok-free.app/insert",values).then((response)=>{
+           await axios.post("http://localhost:5000/insert",values).then((response)=>{
                
                 alert("News & Event Added SuccessFully");
-                navigate("")
+                window.location.reload();
+                  
                
              })
           console.log(values);
@@ -51,12 +53,6 @@ function AddEvents() {
                     <p className='topic'>Add Events and News</p>
                 </div>
                 <div className='row'>
-
-
-
-
-
-                    
                     <Form onSubmit={formik.handleSubmit}>
                     {formik.touched.value1 && formik.errors.value1 ? (
                                 <div className='ermsg'>{formik.errors.value1}</div>
