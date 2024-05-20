@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'cnndb',
+  database: 'connexdb',
 });
 
 
@@ -55,7 +55,7 @@ router.post('/insert', async (req, res) => {
             console.error(err);
             res.status(500).send('Error inserting data' );
           } else {
-            res.status(200).send('Data inserted successfully');
+            res.status(200).send(req.body);
           }
         });
   

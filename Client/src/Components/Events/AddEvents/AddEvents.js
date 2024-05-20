@@ -7,6 +7,8 @@ import { useFormik } from 'formik';
 import axios from "axios";
 import React  from 'react';
 import { useNavigate } from "react-router-dom";
+import { useEffect,useState } from 'react';
+import Swal from 'sweetalert2'
 import ShowEvents from '../ShowEvents/ShowEvents';
 
 const validationSchema =Yup.object({
@@ -22,7 +24,7 @@ function AddEvents() {
     const input1 =null;
     const formik = useFormik({
         initialValues: {
-            query:"INSERT INTO `news`(`title`, `nlink`, `newstype_id`, `status_id`) VALUES (?,?,?,?)",
+            query:"INSERT INTO `news`(`title`, `nlink`, `newstype_id`, `status_id`) VALUES (?,?,?,?);",
             value1:'',
             value2:'',
             value3:'',
@@ -32,18 +34,61 @@ function AddEvents() {
         validationSchema: validationSchema,
         onSubmit: async (values) => {
            await axios.post("http://localhost:5000/insert",values).then((response)=>{
-               
-                alert("News & Event Added SuccessFully");
+            
+           Swal.fire({
+            icon: "success",
+            title: "Added Successfully!",
+            text: response.data.value1,
+
+        }).then((result) => {
+            if (result.isConfirmed) {
                 window.location.reload();
+            }else{
+                window.location.reload();
+            }
+        });
+        
+               
                   
                
              })
-          console.log(values);
+         
            
               
         },
        
       });
+
+      const [listStatus,setlistStatus]=useState([]);  
+    
+      useEffect(()=>{
+     
+        const values = {
+          query:"SELECT * FROM `status`;",
+          key : "Cr6re8VRBm"
+        }
+          
+        axios.post("http://localhost:5000/search",values).then((response)=>{
+          setlistStatus(response.data);
+          console.log(response.data);
+        })
+      },[]);
+
+
+      const [listtype,setlisttype]=useState([]);  
+    
+      useEffect(()=>{
+     
+        const values = {
+          query:"SELECT * FROM `newstype`;",
+          key : "Cr6re8VRBm"
+        }
+          
+        axios.post("http://localhost:5000/search",values).then((response)=>{
+          setlisttype(response.data);
+          console.log(response.data);
+        })
+      },[]);
 
     return (
         <div className='row'>
@@ -53,6 +98,12 @@ function AddEvents() {
                     <p className='topic'>Add Events and News</p>
                 </div>
                 <div className='row'>
+
+
+
+
+
+                    
                     <Form onSubmit={formik.handleSubmit}>
                     {formik.touched.value1 && formik.errors.value1 ? (
                                 <div className='ermsg'>{formik.errors.value1}</div>
@@ -97,11 +148,15 @@ function AddEvents() {
                            value={formik.values.name}  
                            placeholder='Enter Title here ...'>
                                 <option>Select a News Type</option>
-                                <option value="1">Lates</option>
-                                <option value="2">Lates 1</option>
-                                <option value="3">lates 2</option>
-                                <option value="3">lates 3</option>
-                                <option value="3">lates 4</option>
+                                {listtype.map(({id,type},index)=>{
+                                return(
+                                    <option value={id}>{type}</option>
+                               
+                                )
+                                })}
+
+                                
+                               
                             </Form.Select>
                         </FloatingLabel>
                         {formik.touched.value2 && formik.errors.value4 ? (
@@ -118,8 +173,13 @@ function AddEvents() {
                            value={formik.values.name}  
                            placeholder='Enter Title here ...'>
                                 <option>Select the status</option>
-                                <option value="1">Enable</option>
-                                <option value="2">Disable</option>
+                                {listStatus.map(({id,name},index)=>{
+                                return(
+                                    <option value={id}>{name}</option>
+                               
+                                )
+                                })}
+
                                
                             </Form.Select>
                         </FloatingLabel>
