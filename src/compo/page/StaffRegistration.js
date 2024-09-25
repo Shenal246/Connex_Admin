@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TextField, Button, MenuItem, Select, InputLabel, FormControl, Container, Grid, Typography, Box, Card, CardContent, CardHeader, Divider, Avatar } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios'; // Import Axios
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import SaveIcon from '@mui/icons-material/Save';
-import APIConnection from '../../config';
+import APIConnection from '../../config'; // Your API URL config
 import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const StaffRegistration = () => {
-
   const addstaffapi = APIConnection.addstaffapi;
+
+  // State for storing the name of the uploaded image
+  const [photoName, setPhotoName] = useState(null);
 
   const formik = useFormik({
     initialValues: {
@@ -22,7 +24,7 @@ const StaffRegistration = () => {
       country_id: '',
       department_id: '',
       gender_id: '',
-      photo: null
+      photo: null,
     },
     validationSchema: Yup.object({
       emp_id: Yup.string().required('Employee ID is required'),
@@ -33,10 +35,9 @@ const StaffRegistration = () => {
       country_id: Yup.string().required('Country is required'),
       department_id: Yup.string().required('Department is required'),
       gender_id: Yup.string().required('Gender is required'),
-      photo: Yup.mixed().required('A photo is required')
+      photo: Yup.mixed().required('A photo is required'),
     }),
-    onSubmit: async (values) => {
-      // Create FormData object to handle file and other fields
+    onSubmit: async (values, { resetForm }) => {
       const formData = new FormData();
       formData.append('emp_id', values.emp_id);
       formData.append('name', values.name);
@@ -49,7 +50,6 @@ const StaffRegistration = () => {
       formData.append('photo', values.photo); // File upload
 
       try {
-        // Send form data to the backend using Axios
         const response = await axios.post(addstaffapi, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -62,6 +62,9 @@ const StaffRegistration = () => {
           text: 'Staff registered successfully!',
           confirmButtonText: 'OK',
         });
+
+        resetForm();
+        setPhotoName(null); // Clear the photo name after successful submission
       } catch (error) {
         Swal.fire({
           icon: 'error',
@@ -72,6 +75,19 @@ const StaffRegistration = () => {
       }
     },
   });
+
+  // Function to handle photo selection and set the file name
+  const handlePhotoChange = (event) => {
+    const file = event.currentTarget.files[0];
+    formik.setFieldValue('photo', file);
+
+    // Set the file name
+    if (file) {
+      setPhotoName(file.name);
+    } else {
+      setPhotoName(null); // Clear the file name if no file is selected
+    }
+  };
 
   return (
     <Container maxWidth="md" sx={{ mb: 5 }}>
@@ -155,7 +171,7 @@ const StaffRegistration = () => {
                 />
               </Grid>
 
-              {/* Designation (Foreign Key) */}
+              {/* Designation */}
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth variant="outlined">
                   <InputLabel>Designation</InputLabel>
@@ -175,7 +191,7 @@ const StaffRegistration = () => {
                 </FormControl>
               </Grid>
 
-              {/* Country ID (Foreign Key) */}
+              {/* Country ID */}
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth variant="outlined">
                   <InputLabel>Country</InputLabel>
@@ -195,7 +211,7 @@ const StaffRegistration = () => {
                 </FormControl>
               </Grid>
 
-              {/* Department ID (Foreign Key) */}
+              {/* Department ID */}
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth variant="outlined">
                   <InputLabel>Department</InputLabel>
@@ -215,7 +231,7 @@ const StaffRegistration = () => {
                 </FormControl>
               </Grid>
 
-              {/* Gender (Foreign Key) */}
+              {/* Gender */}
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth variant="outlined">
                   <InputLabel>Gender</InputLabel>
@@ -251,14 +267,19 @@ const StaffRegistration = () => {
                     accept="image/*"
                     id="photo"
                     name="photo"
-                    onChange={(event) => {
-                      formik.setFieldValue('photo', event.currentTarget.files[0]);
-                    }}
+                    onChange={handlePhotoChange} // Handle file change
                   />
                 </Button>
                 {formik.touched.photo && formik.errors.photo ? (
                   <div style={{ color: 'red' }}>{formik.errors.photo}</div>
                 ) : null}
+
+                {/* Display photo name if available */}
+                {photoName && (
+                  <Box mt={2}>
+                    <Typography variant="body2" gutterBottom>Uploaded Photo: {photoName}</Typography>
+                  </Box>
+                )}
               </Grid>
 
               {/* Submit Button */}
