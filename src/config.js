@@ -5,6 +5,7 @@ const config = {
     changePasswordApi: `${mainlink}/change-password-staff`,
     verifytoken: `${mainlink}/verifytoken`,
     logoutapi: `${mainlink}/stafflogout`,
+    addstaffapi: `${mainlink}/addStaffDetails`,
    
 };
 

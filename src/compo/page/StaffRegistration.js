@@ -2,11 +2,16 @@ import React from 'react';
 import { TextField, Button, MenuItem, Select, InputLabel, FormControl, Container, Grid, Typography, Box, Card, CardContent, CardHeader, Divider, Avatar } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios'; // Import Axios
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import SaveIcon from '@mui/icons-material/Save';
-
+import APIConnection from '../../config';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const StaffRegistration = () => {
+
+  const addstaffapi = APIConnection.addstaffapi;
+
   const formik = useFormik({
     initialValues: {
       emp_id: '',
@@ -27,14 +32,45 @@ const StaffRegistration = () => {
       designation: Yup.string().required('Designation is required'),
       country_id: Yup.string().required('Country is required'),
       department_id: Yup.string().required('Department is required'),
-      manager_id: Yup.string().required('Manager is required'),
       gender_id: Yup.string().required('Gender is required'),
-      org_id: Yup.string().required('Organization is required'),
       photo: Yup.mixed().required('A photo is required')
     }),
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    }
+    onSubmit: async (values) => {
+      // Create FormData object to handle file and other fields
+      const formData = new FormData();
+      formData.append('emp_id', values.emp_id);
+      formData.append('name', values.name);
+      formData.append('email', values.email);
+      formData.append('mobileno', values.mobileno);
+      formData.append('designation', values.designation);
+      formData.append('country_id', values.country_id);
+      formData.append('department_id', values.department_id);
+      formData.append('gender_id', values.gender_id);
+      formData.append('photo', values.photo); // File upload
+
+      try {
+        // Send form data to the backend using Axios
+        const response = await axios.post(addstaffapi, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Staff Registered',
+          text: 'Staff registered successfully!',
+          confirmButtonText: 'OK',
+        });
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Registration Failed',
+          text: 'Failed to register staff. Please try again.',
+          confirmButtonText: 'OK',
+        });
+      }
+    },
   });
 
   return (
