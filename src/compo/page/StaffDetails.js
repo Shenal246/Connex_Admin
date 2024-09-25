@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Container, Card, CardContent, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Avatar, Paper, Box, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { Container, Card, CardContent, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Avatar, Paper, Box, Button, Dialog, DialogTitle, DialogContent, DialogActions, Divider } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import PersonIcon from '@mui/icons-material/Person';
 
 // Example staff data (you can fetch this from an API)
 const initialStaffData = [
-  { emp_id: '1', name: 'John Doe', email: 'john@example.com', mobileno: '1234567890', department: 'Development', photo: null },
-  { emp_id: '2', name: 'Jane Smith', email: 'jane@example.com', mobileno: '0987654321', department: 'Marketing', photo: null },
-  { emp_id: '3', name: 'Mark Johnson', email: 'mark@example.com', mobileno: '1234598765', department: 'HR', photo: null },
+  { emp_id: '1', name: 'John Doe', email: 'john@example.com', mobileno: '1234567890', department: 'Development', photo: null, is_account_created: false },
+  { emp_id: '2', name: 'Jane Smith', email: 'jane@example.com', mobileno: '0987654321', department: 'Marketing', photo: null, is_account_created: false },
+  { emp_id: '3', name: 'Mark Johnson', email: 'mark@example.com', mobileno: '1234598765', department: 'HR', photo: null, is_account_created: true },
   // Add more staff records as needed
 ];
 
@@ -110,7 +111,7 @@ const StaffDetails = () => {
                     <TableCell>{staff.mobileno}</TableCell>
                     <TableCell>{staff.department}</TableCell>
                     <TableCell>
-                      <Avatar alt={staff.name} src={staff.photo} />
+                      <Avatar alt={staff.name} src={staff.photo || undefined} />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -134,6 +135,19 @@ const StaffDetails = () => {
             <DialogContent dividers>
               {selectedStaff && (
                 <>
+                  {/* Display Staff Photo */}
+                  <Box textAlign="center" mb={3}>
+                    <Avatar
+                      src={selectedStaff.photo || undefined}
+                      sx={{ width: 120, height: 120, margin: '0 auto', boxShadow: 3 }}
+                    >
+                      {/* Default Icon if no photo */}
+                      {selectedStaff.photo ? null : <PersonIcon sx={{ fontSize: 80 }} />}
+                    </Avatar>
+                  </Box>
+
+                  <Divider sx={{ mb: 2 }} />
+
                   <Typography variant="body1"><strong>Employee ID:</strong> {selectedStaff.emp_id}</Typography>
                   <Typography variant="body1"><strong>Name:</strong> {selectedStaff.name}</Typography>
                   <Typography variant="body1"><strong>Email:</strong> {selectedStaff.email}</Typography>
@@ -144,7 +158,10 @@ const StaffDetails = () => {
               )}
             </DialogContent>
             <DialogActions>
-              <Button onClick={handleValidate} color="primary" variant="contained">Validate</Button>
+              {/* Show Validate button only if is_account_created is false */}
+              {selectedStaff && !selectedStaff.is_account_created && (
+                <Button onClick={handleValidate} color="primary" variant="contained">Validate</Button>
+              )}
               <Button onClick={handleClose} color="secondary" variant="outlined">Close</Button>
             </DialogActions>
           </Dialog>

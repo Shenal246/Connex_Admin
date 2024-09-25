@@ -45,7 +45,7 @@ const themeColors = {
 const styles = {
   header: {
     padding: '10px 20px',
-    backgroundColor: '#03163c',
+    backgroundColor: '#263317',
     color: themeColors.textPrimary,
     textAlign: 'center',
     fontSize: '16px',
@@ -71,7 +71,7 @@ const styles = {
   },
   footer: {
     padding: '10px 20px',
-    backgroundColor: '#03163c',
+    backgroundColor: '#263317',
     textAlign: 'center',
     borderTop: `1px solid ${themeColors.border}`,
     fontSize: '12px',
@@ -247,7 +247,7 @@ const AppContent = () => {
 
   useEffect(() => {
     const checkAuthStatus = async () => {
-      const pId = { "pId": 3 }
+      const pId = { "pId": 4 }
       try {
         // Check authentication status by calling an API that verifies the JWT token stored in the HttpOnly cookie
         await axios.post(verifyToken, pId, { withCredentials: true }).then((res) => {
@@ -278,14 +278,14 @@ const AppContent = () => {
               </Typography>
             </Box>
             <Box display="flex" alignItems="center" marginRight="20px">
-              <IconButton
+              {/* <IconButton
                 onClick={handleProfileClick}
                 style={styles.iconButton}
                 aria-label="Profile"
                 sx={{ marginRight: '8px' }}
               >
                 <Person />
-              </IconButton>
+              </IconButton> */}
               <IconButton
                 onClick={handleLogout}
                 style={styles.iconButton}

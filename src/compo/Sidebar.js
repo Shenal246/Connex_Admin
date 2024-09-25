@@ -20,7 +20,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 // Define theme colors with a modern look
 const themeColors = {
-  sidebarBg: 'linear-gradient(to bottom, #2e2e2e, #444444)', // Updated gradient for a modern look
+  sidebarBg: 'linear-gradient(to bottom, #2e2e2e, #263317)', // Updated gradient for a modern look
   buttonBg: '#444444', // Consistent button background
   buttonText: '#ffffff', // Text color for contrast
   hoverBg: '#555555', // Hover effect color

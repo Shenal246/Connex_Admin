@@ -8,7 +8,7 @@ import {
   Checkbox,
   InputAdornment,
   IconButton,
-  CircularProgress, 
+  CircularProgress,
   Paper,
   Grid,
 } from '@mui/material';
@@ -21,7 +21,7 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../App';
 
-import img from '../img/Corporate-Sales.png';
+import img from '../img/adminimage.webp';
 import axios from 'axios';
 import APIConnection from '../../config.js';
 
@@ -41,7 +41,7 @@ const themeColor = {
 
 // Background styling for the login page
 const Background = styled(Box)(({ theme }) => ({
-  
+
   background: '#ffffff',
   display: 'flex',
   justifyContent: 'center',
@@ -136,7 +136,7 @@ const LoginPage = ({ onLogin }) => {
   const handleLogin = async () => {
     setLoading(true);
     try {
-      const portalID = 3;
+      const portalID = 4;
       const response = await axios.post(
         loginapi,
         { username: email, password, portalID },
@@ -145,8 +145,8 @@ const LoginPage = ({ onLogin }) => {
       if (response.status === 200) {
         if (response.data.firstLogin) {
           Swal.fire('Welcome!', 'Please change your password.', 'info');
-          localStorage.setItem('token', response.data.tempToken); 
-         // Store the token
+          localStorage.setItem('token', response.data.tempToken);
+          // Store the token
           navigate('/changepassword');
         } else {
           Swal.fire('Success!', 'Logged in successfully!', 'success');
@@ -163,7 +163,7 @@ const LoginPage = ({ onLogin }) => {
     }
   };
 
- 
+
 
   return (
     <Background>
@@ -174,15 +174,12 @@ const LoginPage = ({ onLogin }) => {
             <img
               src={img}
               alt="Company Logo"
-              style={{marginTop: '50px', maxWidth: '80%' }}
+              style={{ marginTop: '10px', maxWidth: '80%', marginBottom: '50px', borderRadius: '15px' }}
             />
             <Typography variant="h4" gutterBottom>
-            Welcome to the New Sales Portal
+              Welcome to the Admin Portal
             </Typography>
-            <Typography variant="body1" color="textSecondary">
-            Our new Sales Portal is a comprehensive solution for all your sales needs. It offers a range of powerful tools and features designed to help you manage your sales activities more efficiently and effectively.
-           
-            </Typography>
+            
           </ContentBox>
         </Grid>
 
@@ -260,7 +257,7 @@ const LoginPage = ({ onLogin }) => {
             >
               {loading ? 'Logging in...' : 'Login'}
             </StyledButton>
-          
+
           </StyledPaper>
         </Grid>
       </Grid>

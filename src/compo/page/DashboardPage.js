@@ -1,171 +1,151 @@
 import React, { useState } from 'react';
-import { Container, Card, CardContent, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Avatar, Paper, Box, Button, Dialog, DialogTitle, DialogContent, DialogActions, Divider } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import PersonIcon from '@mui/icons-material/Person';
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Paper,
+  Grid,
+} from '@mui/material';
+import { styled } from '@mui/system';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import img from '../img/marketing-pillar-page-marketing-overview_0.png';
+import { Dashboard } from '@mui/icons-material';
 
-// Example staff data (you can fetch this from an API)
-const initialStaffData = [
-  { emp_id: '1', name: 'John Doe', email: 'john@example.com', mobileno: '1234567890', department: 'Development', photo: null },
-  { emp_id: '2', name: 'Jane Smith', email: 'jane@example.com', mobileno: '0987654321', department: 'Marketing', photo: null },
-  { emp_id: '3', name: 'Mark Johnson', email: 'mark@example.com', mobileno: '1234598765', department: 'HR', photo: null },
-  // Add more staff records as needed
-];
+// Theme colors
+const themeColor = {
+  primary: '#444',
+  primaryDark: '#666',
+  success: '#4caf50',
+  error: '#f44336',
+  headerBg: '#444',
+  headerTextColor: '#ffffff',
+  borderColor: '#777',
+  color: '#000000',
+  rowHoverColor: '#f5f5f5',
+  scrollbarThumbColor: '#888',
+};
 
-const StaffDetails = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [staffData] = useState(initialStaffData);
-  const [open, setOpen] = useState(false); // To control dialog visibility
-  const [selectedStaff, setSelectedStaff] = useState(null); // Store selected staff
+// Background styling for the login page
+const Background = styled(Box)(({ theme }) => ({
+  minHeight: '80vh',
+  background: '#ffffff',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: theme.spacing(4),
+  marginTop: '-100px',
+}));
 
-  // Function to handle search/filter logic
-  const filteredStaff = staffData.filter(
-    (staff) =>
-      staff.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      staff.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      staff.mobileno.includes(searchTerm) ||
-      staff.department.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+// Styling for the content box (left side)
+const ContentBox = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(4),
+  borderRadius: '12px',
+  background: '#ffffff',
+  height: '90%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  textAlign: 'center',
+  [theme.breakpoints.down('md')]: {
+    display: 'none',
+  },
+  animation: 'fadeIn 1s ease-in-out',
+  '@keyframes fadeIn': {
+    from: { opacity: 0, transform: 'translateY(-20px)' },
+    to: { opacity: 1, transform: 'translateY(0)' },
+  },
+}));
 
-  // Open Dialog and set the selected staff
-  const handleRowClick = (staff) => {
-    setSelectedStaff(staff); // Set the clicked staff as selected
-    setOpen(true); // Open the dialog
-  };
+// Keyframes for continuous shake animation
+const shakeAnimation = '@keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } }';
 
-  // Close Dialog
-  const handleClose = () => {
-    setOpen(false); // Close the dialog
-    setSelectedStaff(null); // Clear selected staff
-  };
+// Styling for the paper containing the login form (right side)
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(4),
+  borderRadius: '12px',
+  boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.0)',
+  background: '#fafafa',
+  animation: 'fadeIn 1s ease-in-out',
+  '@keyframes fadeIn': {
+    from: { opacity: 0, transform: 'translateY(-20px)' },
+    to: { opacity: 1, transform: 'translateY(0)' },
+  },
+}));
 
-  // Handle "Validate" button logic (add your own logic here)
-  const handleValidate = () => {
-    console.log("Staff validated:", selectedStaff);
-    setOpen(false); // Close dialog after validation
-  };
+// Styling for the login title
+const TitleTypography = styled(Typography)(({ theme }) => ({
+  color: '#000000',
+  fontSize: '24px',
+  fontWeight: 'bold',
+  textAlign: 'center',
+  marginBottom: theme.spacing(2),
+}));
 
+// Styling for text fields
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  marginBottom: theme.spacing(2),
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: themeColor.borderColor,
+    },
+    '&:hover fieldset': {
+      borderColor: themeColor.primary,
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: themeColor.primaryDark,
+    },
+  },
+  '& .MuiInputAdornment-root': {
+    color: themeColor.primaryDark,
+  },
+}));
+
+// Styling for buttons
+const StyledButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.common.white,
+  fontWeight: 'bold',
+  textTransform: 'none',
+  transition: 'background-color 0.3s ease',
+  '&:hover': {
+    backgroundColor: themeColor.primaryDark,
+  },
+  '&:active': {
+    transform: 'scale(0.98)',
+  },
+  padding: theme.spacing(1.5),
+  marginTop: theme.spacing(2),
+}));
+
+const DashboardPage = () => {
+  
   return (
-    <Container maxWidth="lg" sx={{ mb: 5 }}>
-      {/* Card Wrapper for Premium Look */}
-      <Card sx={{ borderRadius: 4, boxShadow: 5 }}>
-        <CardContent>
-          {/* Title */}
-          <Typography variant="h5" component="div" gutterBottom>
-            Staff List
+    <Background>
+    <Grid container spacing={4} justifyContent="center" alignItems="center">
+      {/* Left box with content and images */}
+      <Grid item xs={12} md={12}>
+        <ContentBox>
+          <img
+            src={img}
+            alt="Company Logo"
+            style={{ 
+              marginBottom: 20, 
+              maxWidth: '40%',
+              animation: 'shake 1s infinite'
+            }}
+          />
+          <Typography variant="h4" gutterBottom>
+            Welcome to the Admin Portal
           </Typography>
+       
+        </ContentBox>
+      </Grid>
+    </Grid>
+  </Background>
 
-          {/* Search Bar */}
-          <Box display="flex" alignItems="center" my={3}>
-            <SearchIcon sx={{ mr: 1 }} />
-            <TextField
-              fullWidth
-              variant="outlined"
-              placeholder="Search by Name, Email, Mobile Number, or Department"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              sx={{ borderRadius: 2 }}
-            />
-          </Box>
-
-          {/* Staff List Table */}
-          <TableContainer component={Paper} sx={{ maxHeight: 400, overflowY: 'auto' }}>
-            <Table stickyHeader>
-              <TableHead>
-                <TableRow>
-                  {/* Apply background color to TableCell */}
-                  <TableCell sx={{ backgroundColor: '#444444', color: '#ffffff', fontSize: '0.875rem' }}>
-                    <Typography variant="subtitle2" sx={{ color: '#ffffff' }}>#</Typography>
-                  </TableCell>
-                  <TableCell sx={{ backgroundColor: '#444444', color: '#ffffff', fontSize: '0.875rem' }}>
-                    <Typography variant="subtitle2" sx={{ color: '#ffffff' }}>Employee ID</Typography>
-                  </TableCell>
-                  <TableCell sx={{ backgroundColor: '#444444', color: '#ffffff', fontSize: '0.875rem' }}>
-                    <Typography variant="subtitle2" sx={{ color: '#ffffff' }}>Name</Typography>
-                  </TableCell>
-                  <TableCell sx={{ backgroundColor: '#444444', color: '#ffffff', fontSize: '0.875rem' }}>
-                    <Typography variant="subtitle2" sx={{ color: '#ffffff' }}>Email</Typography>
-                  </TableCell>
-                  <TableCell sx={{ backgroundColor: '#444444', color: '#ffffff', fontSize: '0.875rem' }}>
-                    <Typography variant="subtitle2" sx={{ color: '#ffffff' }}>Mobile Number</Typography>
-                  </TableCell>
-                  <TableCell sx={{ backgroundColor: '#444444', color: '#ffffff', fontSize: '0.875rem' }}>
-                    <Typography variant="subtitle2" sx={{ color: '#ffffff' }}>Department</Typography>
-                  </TableCell>
-                  <TableCell sx={{ backgroundColor: '#444444', color: '#ffffff', fontSize: '0.875rem' }}>
-                    <Typography variant="subtitle2" sx={{ color: '#ffffff' }}>Photo</Typography>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {filteredStaff.map((staff, index) => (
-                  <TableRow key={staff.emp_id} onClick={() => handleRowClick(staff)} sx={{
-                    '&:hover': {
-                      backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                      cursor: 'pointer',
-                    },
-                  }}>
-                    <TableCell>{index + 1}</TableCell>
-                    <TableCell>{staff.emp_id}</TableCell>
-                    <TableCell>{staff.name}</TableCell>
-                    <TableCell>{staff.email}</TableCell>
-                    <TableCell>{staff.mobileno}</TableCell>
-                    <TableCell>{staff.department}</TableCell>
-                    <TableCell>
-                      <Avatar alt={staff.name} src={staff.photo || undefined} />
-                    </TableCell>
-                  </TableRow>
-                ))}
-                {/* Show no results message if no staff is found */}
-                {filteredStaff.length === 0 && (
-                  <TableRow>
-                    <TableCell colSpan={7}>
-                      <Typography align="center" color="textSecondary">
-                        No results found.
-                      </Typography>
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-
-          {/* Dialog for Staff Details */}
-          <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-            <DialogTitle>Staff Details</DialogTitle>
-            <DialogContent dividers>
-              {selectedStaff && (
-                <>
-                  {/* Display Staff Photo */}
-                  <Box textAlign="center" mb={3}>
-                    <Avatar
-                      src={selectedStaff.photo || undefined}
-                      sx={{ width: 120, height: 120, margin: '0 auto', boxShadow: 3 }}
-                    >
-                      {/* Default Icon if no photo */}
-                      {selectedStaff.photo ? null : <PersonIcon sx={{ fontSize: 80 }} />}
-                    </Avatar>
-                  </Box>
-
-                  <Divider sx={{ mb: 2 }} />
-
-                  <Typography variant="body1"><strong>Employee ID:</strong> {selectedStaff.emp_id}</Typography>
-                  <Typography variant="body1"><strong>Name:</strong> {selectedStaff.name}</Typography>
-                  <Typography variant="body1"><strong>Email:</strong> {selectedStaff.email}</Typography>
-                  <Typography variant="body1"><strong>Mobile Number:</strong> {selectedStaff.mobileno}</Typography>
-                  <Typography variant="body1"><strong>Department:</strong> {selectedStaff.department}</Typography>
-                  {/* Add more details as needed */}
-                </>
-              )}
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleValidate} color="primary" variant="contained">Validate</Button>
-              <Button onClick={handleClose} color="secondary" variant="outlined">Close</Button>
-            </DialogActions>
-          </Dialog>
-        </CardContent>
-      </Card>
-    </Container>
   );
 };
 
-export default StaffDetails;
+export default DashboardPage;
