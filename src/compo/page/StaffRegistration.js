@@ -191,7 +191,7 @@ const StaffRegistration = () => {
                     error={formik.touched.designation && Boolean(formik.errors.designation)}
                   >
                    
-                    <MenuItem value="Project Manager">Project Manager</MenuItem>
+                    <MenuItem value="PM">PM</MenuItem>
                     <MenuItem value="Marketing">Marketing</MenuItem>
                   
                   </Select>
