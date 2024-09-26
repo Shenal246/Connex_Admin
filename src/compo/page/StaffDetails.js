@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Card, CardContent, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Avatar, Paper, Box, Button, Dialog, DialogTitle, DialogContent, DialogActions, Divider } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
+import APIConnection from '../../config'; // Your API URL config
+import Swal from 'sweetalert2'; // Import SweetAlert2
+import axios from 'axios'; // Import Axios
 
 // Example staff data (you can fetch this from an API)
 const initialStaffData = [
@@ -13,9 +16,11 @@ const initialStaffData = [
 
 const StaffDetails = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [staffData] = useState(initialStaffData);
+  const [staffData, setStaffData] = useState(initialStaffData);
   const [open, setOpen] = useState(false); // To control dialog visibility
   const [selectedStaff, setSelectedStaff] = useState(null); // Store selected staff
+
+  const fetchstaffapi = APIConnection.fetchstaffapi;
 
   // Function to handle search/filter logic
   const filteredStaff = staffData.filter(
@@ -43,6 +48,34 @@ const StaffDetails = () => {
     console.log("Staff validated:", selectedStaff);
     setOpen(false); // Close dialog after validation
   };
+
+  const fetchstaffdetails = async () => {
+    try {
+      const response = await axios.get(fetchstaffapi,{ withCredentials: true });
+
+      if (response.status === 200) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Staff Registered',
+          text: 'Staff registered successfully!',
+          confirmButtonText: 'OK',
+        });
+      }
+     
+
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Registration Failed',
+        text: error.response.data.message,
+        confirmButtonText: 'OK',
+      });
+    }
+  }
+
+  useEffect(() => {
+
+  }, [])
 
   return (
     <Container maxWidth="lg" sx={{ mb: 5 }}>

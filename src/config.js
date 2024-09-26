@@ -6,6 +6,7 @@ const config = {
     verifytoken: `${mainlink}/verifytoken`,
     logoutapi: `${mainlink}/stafflogout`,
     addstaffapi: `${mainlink}/addStaffDetails`,
+    fetchstaffapi: `${mainlink}/getstaffdetails`,
    
 };
 
