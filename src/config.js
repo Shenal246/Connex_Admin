@@ -7,7 +7,8 @@ const config = {
     logoutapi: `${mainlink}/stafflogout`,
     addstaffapi: `${mainlink}/addStaffDetails`,
     fetchstaffapi: `${mainlink}/getstaffdetails`,
-   
+    validatestaffapi: `${mainlink}/connexStaffRegister`,
+    mainlink: `${mainlink}`
 };
 
 export default config;
