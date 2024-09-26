@@ -69,7 +69,7 @@ const StaffRegistration = () => {
         Swal.fire({
           icon: 'error',
           title: 'Registration Failed',
-          text: 'Failed to register staff. Please try again.',
+          text: error.response.data.message,
           confirmButtonText: 'OK',
         });
       }
