@@ -50,12 +50,12 @@ const StaffRegistration = () => {
       formData.append('photo', values.photo); // File upload
 
       try {
-        const response = await axios.post(addstaffapi, formData, { withCredentials: true },
+        const response = await axios.post(addstaffapi, formData, {withCredentials:true},
           {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
 
         Swal.fire({
           icon: 'success',
