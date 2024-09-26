@@ -54,12 +54,7 @@ const StaffDetails = () => {
       const response = await axios.get(fetchstaffapi,{ withCredentials: true });
 
       if (response.status === 200) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Staff Registered',
-          text: 'Staff registered successfully!',
-          confirmButtonText: 'OK',
-        });
+        setStaffData(response.data)
       }
      
 
@@ -74,7 +69,7 @@ const StaffDetails = () => {
   }
 
   useEffect(() => {
-
+    fetchstaffdetails();
   }, [])
 
   return (

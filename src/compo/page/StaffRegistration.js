@@ -57,16 +57,22 @@ const StaffRegistration = () => {
             },
           });
 
-        Swal.fire({
-          icon: 'success',
-          title: 'Staff Registered',
-          text: 'Staff registered successfully!',
-          confirmButtonText: 'OK',
-        });
+        if (response.status === 200) {
+
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Staff Registered',
+            text: 'Staff registered successfully!',
+            confirmButtonText: 'OK',
+          });
+        }
 
         resetForm();
         setPhotoName(null); // Clear the photo name after successful submission
       } catch (error) {
+
+        console.log(error)
         Swal.fire({
           icon: 'error',
           title: 'Registration Failed',
@@ -184,10 +190,10 @@ const StaffRegistration = () => {
                     label="Designation"
                     error={formik.touched.designation && Boolean(formik.errors.designation)}
                   >
-                    <MenuItem value=""><em>None</em></MenuItem>
-                    <MenuItem value="1">Junior Developer</MenuItem>
-                    <MenuItem value="2">Senior Developer</MenuItem>
-                    <MenuItem value="3">Project Manager</MenuItem>
+                   
+                    <MenuItem value="Project Manager">Project Manager</MenuItem>
+                    <MenuItem value="Marketing">Marketing</MenuItem>
+                  
                   </Select>
                 </FormControl>
               </Grid>
@@ -204,10 +210,9 @@ const StaffRegistration = () => {
                     label="Country"
                     error={formik.touched.country_id && Boolean(formik.errors.country_id)}
                   >
-                    <MenuItem value=""><em>None</em></MenuItem>
-                    <MenuItem value="1">USA</MenuItem>
-                    <MenuItem value="2">India</MenuItem>
-                    <MenuItem value="3">Germany</MenuItem>
+                  
+                    <MenuItem value="1">Sri lanka</MenuItem>
+                   
                   </Select>
                 </FormControl>
               </Grid>
@@ -224,10 +229,10 @@ const StaffRegistration = () => {
                     label="Department"
                     error={formik.touched.department_id && Boolean(formik.errors.department_id)}
                   >
-                    <MenuItem value=""><em>None</em></MenuItem>
-                    <MenuItem value="1">Development</MenuItem>
+                   
+                    <MenuItem value="1">Sales</MenuItem>
                     <MenuItem value="2">Marketing</MenuItem>
-                    <MenuItem value="3">HR</MenuItem>
+                   
                   </Select>
                 </FormControl>
               </Grid>
@@ -244,10 +249,10 @@ const StaffRegistration = () => {
                     label="Gender"
                     error={formik.touched.gender_id && Boolean(formik.errors.gender_id)}
                   >
-                    <MenuItem value=""><em>None</em></MenuItem>
+                 
                     <MenuItem value="1">Male</MenuItem>
                     <MenuItem value="2">Female</MenuItem>
-                    <MenuItem value="3">Other</MenuItem>
+                  
                   </Select>
                 </FormControl>
               </Grid>
@@ -265,7 +270,7 @@ const StaffRegistration = () => {
                   <input
                     hidden
                     type="file"
-                    accept="image/*"
+                  accept=".jpg, .jpeg, .png"
                     id="photo"
                     name="photo"
                     onChange={handlePhotoChange} // Handle file change
