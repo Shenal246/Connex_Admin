@@ -8,6 +8,8 @@ const config = {
     addstaffapi: `${mainlink}/addStaffDetails`,
     fetchstaffapi: `${mainlink}/getstaffdetails`,
     validatestaffapi: `${mainlink}/connexStaffRegister`,
+    fetchstaffLogsApi: `${mainlink}/getstafflogs`,
+    fetchpartnerLogsApi: `${mainlink}/getpartnerlogs`,
     mainlink: `${mainlink}`
 };
 

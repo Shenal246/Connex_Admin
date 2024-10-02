@@ -30,6 +30,8 @@ import APIConnect from './config';
 import DealREQ from './compo/page/StaffDetails.js';
 import StaffRegistration from './compo/page/StaffRegistration.js';
 import StaffDetails from './compo/page/StaffDetails.js';
+import StaffLogs from './compo/page/StaffLogs.js';
+import PartnerLogs from './compo/page/PartnerLogs.js';
 
 const themeColors = {
   primary: '#333333',
@@ -307,6 +309,8 @@ const AppContent = () => {
             <Route path="/vnmgt" element={<PrivateRoute><DealREQ /></PrivateRoute>} />
             <Route path="/staffregistration" element={<PrivateRoute><StaffRegistration /></PrivateRoute>} />
             <Route path="/createaccount" element={<PrivateRoute><StaffDetails /></PrivateRoute>} />
+            <Route path="/partneractivities" element={<PrivateRoute><PartnerLogs /></PrivateRoute>} />
+            <Route path="/staffactivities" element={<PrivateRoute><StaffLogs /></PrivateRoute>} />
             <Route path="/changepassword" element={<ChangePasswordPage />} />
             {/* Add other routes here */}
           </Routes>

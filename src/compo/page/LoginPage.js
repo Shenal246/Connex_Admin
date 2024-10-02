@@ -157,7 +157,6 @@ const LoginPage = ({ onLogin }) => {
       }
     } catch (error) {
       Swal.fire('Error!', 'Invalid email or password. Please try again.', 'error');
-      console.log(error)
     } finally {
       setLoading(false);
     }

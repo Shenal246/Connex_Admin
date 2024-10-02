@@ -17,6 +17,8 @@ import LogoImage from './img/logo-no-background.png';
 import CopyrightLogo from './img/image.png'; // Import your company logo
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import PersonalVideoIcon from '@mui/icons-material/PersonalVideo';
+import LaptopIcon from '@mui/icons-material/Laptop';
 
 // Define theme colors with a modern look
 const themeColors = {
@@ -129,6 +131,8 @@ const navItems = [
   { text: 'Home', icon: <Home />, path: '/dashboard' },
   { text: 'Staff Registration', icon: <PersonAddIcon />, path: '/staffregistration' },
   { text: 'Create Account', icon: <AccountBoxIcon />, path: '/createaccount' },
+  { text: 'Staff Activities', icon: <PersonalVideoIcon />, path: '/staffactivities' },
+  { text: 'Partner Activities', icon: <LaptopIcon />, path: '/partneractivities' },
  
 ];
 
