@@ -50,12 +50,12 @@ const StaffRegistration = () => {
       formData.append('photo', values.photo); // File upload
 
       try {
-        const response = await axios.post(addstaffapi, formData, {withCredentials:true},
+        const response = await axios.post(addstaffapi, formData, { withCredentials: true },
           {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
 
         if (response.status === 200) {
 
@@ -190,10 +190,10 @@ const StaffRegistration = () => {
                     label="Designation"
                     error={formik.touched.designation && Boolean(formik.errors.designation)}
                   >
-                   
+
                     <MenuItem value="PM">PM</MenuItem>
                     <MenuItem value="Marketing">Marketing</MenuItem>
-                  
+
                   </Select>
                 </FormControl>
               </Grid>
@@ -210,9 +210,9 @@ const StaffRegistration = () => {
                     label="Country"
                     error={formik.touched.country_id && Boolean(formik.errors.country_id)}
                   >
-                  
+
                     <MenuItem value="1">Sri lanka</MenuItem>
-                   
+
                   </Select>
                 </FormControl>
               </Grid>
@@ -229,10 +229,10 @@ const StaffRegistration = () => {
                     label="Department"
                     error={formik.touched.department_id && Boolean(formik.errors.department_id)}
                   >
-                   
+
                     <MenuItem value="1">Sales</MenuItem>
                     <MenuItem value="2">Marketing</MenuItem>
-                   
+
                   </Select>
                 </FormControl>
               </Grid>
@@ -249,10 +249,10 @@ const StaffRegistration = () => {
                     label="Gender"
                     error={formik.touched.gender_id && Boolean(formik.errors.gender_id)}
                   >
-                 
+
                     <MenuItem value="1">Male</MenuItem>
                     <MenuItem value="2">Female</MenuItem>
-                  
+
                   </Select>
                 </FormControl>
               </Grid>
@@ -270,7 +270,7 @@ const StaffRegistration = () => {
                   <input
                     hidden
                     type="file"
-                  accept=".jpg, .jpeg, .png"
+                    accept=".jpg, .jpeg, .png"
                     id="photo"
                     name="photo"
                     onChange={handlePhotoChange} // Handle file change
